@@ -1,6 +1,7 @@
 package com.contact.management.contactmanagement.entites;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -25,9 +26,8 @@ public class User {
     @Column(length = 500)
     private String about;
     
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "user")
-    private ArrayList<Contact> contacts = new ArrayList<>();
-    
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
+    private List<Contact> contacts = new ArrayList<>();
     public User(String name, String email, String password, String role, boolean enabled, String imgUrl, String about) {
         this.name = name;
         this.email = email;
@@ -101,21 +101,21 @@ public class User {
     
 
     public ArrayList<Contact> getContacts() {
-        return contacts;
+        return (ArrayList<Contact>) contacts;
     }
 
     public void setContacts(ArrayList<Contact> contacts) {
         this.contacts = contacts;
     }
 
-    @Override
-    public String toString() {
-        return "User [name=" + name + ", email=" + email + ", password=" + password + ", role=" + role + ", enabled="
-                + enabled + ", imgUrl=" + imgUrl + ", about=" + about + "]";
-    }
-
     public int getId() {
         return id;
+    }
+
+    @Override
+    public String toString() {
+        return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", role=" + role
+                + ", enabled=" + enabled + ", imgUrl=" + imgUrl + ", about=" + about + ", contacts=" + contacts + "]";
     }
 
     public void setId(int id) {
